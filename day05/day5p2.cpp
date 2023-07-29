@@ -33,6 +33,7 @@ stack<char> reverseStack(stack<char> toBeSwapped){
 void moveStack(stack<char>* dest, stack<char>* src){
     stack<char> d = *dest;
     stack<char> s = *src;
+
     dest->push(src->top());
     src->pop();
 }
@@ -60,6 +61,7 @@ int main(){
             if (firstHalf){
                 // end of parsing
                 if (line[1] == '1' && line[5] == '2' && line[9] == '3' && line[13] == '4' && line[17] == '5' && line[21] == '6' && line[25] == '7' && line[29] == '8' && line[33] == '9'){
+//                if (line[1] == '1' && line[5] == '2' && line[9] == '3'){
 
                     firstHalf = false;
 
@@ -190,22 +192,28 @@ int main(){
                         break;
                 }
 
+                // Observation: If I move 'n' boxes from the source to a temporary holder, then move those 'n' boxes from the temporary holder to the destination, their order is preserved. It's as if we moved those 'n' boxes as a block, just like in the description
+                // Creating a temporary holding place
+                stack<char> tmp;
+                for (int i = 0; i < move.num; i++){
+                    moveStack(&tmp, source);
+                }
                 // moving stack items as many times as the command requires
                 for (int i = 0; i < move.num; i++){
-                    moveStack(destination, source);
+                    moveStack(destination, &tmp);
                 }
             }
         }
 
         std::cout << "Stack tops:\n";
-        std::cout << stack1.top() << ' ';
-        std::cout << stack2.top() << ' ';
-        std::cout << stack3.top() << ' ';
-        std::cout << stack4.top() << ' ';
-        std::cout << stack5.top() << ' ';
-        std::cout << stack6.top() << ' ';
-        std::cout << stack7.top() << ' ';
-        std::cout << stack8.top() << ' ';
+        std::cout << stack1.top();
+        std::cout << stack2.top();
+        std::cout << stack3.top();
+        std::cout << stack4.top();
+        std::cout << stack5.top();
+        std::cout << stack6.top();
+        std::cout << stack7.top();
+        std::cout << stack8.top();
         std::cout << stack9.top() << '\n';
 
 
